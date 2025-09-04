@@ -14,4 +14,32 @@
     <string name="btn_redes">Redes</string>
     <string name="btn_ciber">CiberSeguridad</string>
     <string name="btn_micro">Microondas</string>
+
+    <!-- Juego -->
+    <string name="hint_text">Al ojo</string>
+
+    <string name="hint_button">\?</string>
+    <string name="score_prefix">Puntaje %1$d</string>
+    <string name="toast_finish">¡Fin! Puntaje total: %1$d</string>
+    <string name="question_numbered">%1$d. %2$s</string>
+    <string name="plus_points">+%1$d</string>
+
+
+    <!-- GameActivity -->
+    <string name="topic_micro">Microondas</string>
+    <string name="score_initial">Puntaje 0</string>
+    <string name="question_placeholder">1. Pregunta…</string>
+    <string name="option_1">Opción 1</string>
+    <string name="option_2">Opción 2</string>
+    <string name="option_3">Opción 3</string>
+    <string name="option_4">Opción 4</string>
+
+    <!-- Menu -->
+
+    <string name="menu_profile">Ver perfil y estadísticas</string>
+
+    <!-- Navegación del juego -->
+    <string name="previous">Anterior</string>
+    <string name="next">Siguiente</string>
+
 </resources>

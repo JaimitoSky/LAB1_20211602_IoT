@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TeleQuiz_20211602</string>
+    <string name="title_appbar">APPSIoT</string>
+    <string name="title_telequiz">TeleQuiz</string>
+    <string name="hint_ingresar_nombre">Ingresar nombre</string>
+    <string name="btn_entrar">Entrar</string>
+    <string name="desc_logo">Logo de la app</string>
+
+
+    <!-- SecondActivity -->
+    <string name="title_toolbar_second">TeleQuiz</string>
+    <string name="label_bienvenido">BIENVENIDO</string>
+    <string name="label_selecciona">Selecciona una temática:</string>
+    <string name="btn_redes">Redes</string>
+    <string name="btn_ciber">CiberSeguridad</string>
+    <string name="btn_micro">Microondas</string>
 </resources>

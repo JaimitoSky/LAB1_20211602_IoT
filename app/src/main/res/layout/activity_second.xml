@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SecondActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarSecond"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="@string/title_toolbar_second"
+        app:titleTextColor="@android:color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/txtBienvenido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_bienvenido"
+            android:textSize="22sp"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_selecciona"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnRedes"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_redes"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnCiber"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_ciber"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnMicro"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_micro"/>
+    </LinearLayout>
+</LinearLayout>

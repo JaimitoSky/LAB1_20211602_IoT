@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TeleQuiz_20211602">
         <activity
+            android:name=".ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivityGame"
             android:exported="false" />
         <activity
@@ -26,9 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ProfileActivity" android:exported="false" />
-
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

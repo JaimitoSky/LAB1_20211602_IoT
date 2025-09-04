@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.telequiz_20211602.data.QuizRepository;
+import com.example.telequiz_20211602.data.StatsStore;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -40,10 +41,19 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void startGame(String topic) {
-        Intent i = new Intent(this, ActivityGame.class);
+        // guarda el nombre una sola vez
+        if (StatsStore.playerName == null || StatsStore.playerName.isEmpty()) {
+            String nombre = getIntent().getStringExtra("nombreUsuario");
+            if (nombre != null) StatsStore.playerName = nombre;
+        }
+        // registra IN_PROGRESS
+        StatsStore.startGame(topic);
+
+        Intent i = new Intent(this, ActivityGame.class); // o GameActivity si la llamaste así
         i.putExtra(ActivityGame.EXTRA_TOPIC, topic);
         startActivity(i);
     }
+
 
 
     @Override

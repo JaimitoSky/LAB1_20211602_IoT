@@ -42,4 +42,25 @@
     <string name="previous">Anterior</string>
     <string name="next">Siguiente</string>
 
-</resources>
+
+    <!-- Resultado-->
+    <string name="finish">Terminar</string>
+    <string name="result_title">Puntaje Total:</string>
+    <string name="play_again">Volver a jugar</string>
+    <string name="back">Anterior</string>
+    <string name="result_topic">%1$s</string>
+
+    <!-- Perfil-->
+    <string name="profile_title">PERFIL</string>
+    <string name="profile_player">Jugador: %1$s</string>
+    <string name="profile_start">Inicio: %1$s</string>
+    <string name="profile_count">Cantidad de Partidas: %1$d</string>
+    <string name="profile_games_title">Partidas:</string>
+    <string name="profile_canceled">Canceló</string>
+    <string name="profile_in_progress">En curso</string>
+    <string name="profile_line">%1$s | Tiempo: %2$ds | Puntaje: %3$d</string>
+    <string name="profile_line_in_progress">%1$s | Inicio: %2$s | %3$s</string>
+
+
+
+    </resources>

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.telequiz_20211602.data.QuizRepository;
+import com.example.telequiz_20211602.data.StatsStore;
 import com.example.telequiz_20211602.model.Question;
 
 import java.util.ArrayList;
@@ -40,7 +41,10 @@ public class ActivityGame extends AppCompatActivity {
     // UI
     private TextView txtTopic, txtScore, txtQuestion, txtPerQuestionScore;
     private Button btnOpt1, btnOpt2, btnOpt3, btnOpt4, btnPrev, btnNext, btnHint;
-
+    // Rachas
+    private int correctStreak = 0;
+    private int wrongStreak = 0;
+    private final Map<Integer, Boolean> locked = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,14 +95,20 @@ public class ActivityGame extends AppCompatActivity {
         // Navegación
         btnPrev.setOnClickListener(v -> { if (index > 0) { index--; render(); } });
         btnNext.setOnClickListener(v -> {
-            if (chosen.containsKey(index)) {
-                if (index < questions.size() - 1) {
-                    index++;
-                    render();
-                } else {
-                    Toast.makeText(this, getString(R.string.toast_finish, totalScore), Toast.LENGTH_LONG).show();
-                    finish();
-                }
+            if (!chosen.containsKey(index)) return;
+
+            if (index < questions.size() - 1) {
+                index++;
+                render();
+            } else {
+                StatsStore.finishCurrent(totalScore);
+
+                // Ir a ResultActivity
+                Intent r = new Intent(this, ResultActivity.class);
+                r.putExtra("topic", topic);
+                r.putExtra("score", totalScore);
+                startActivity(r);
+                finish(); // cerrar el juego
             }
         });
 
@@ -106,9 +116,17 @@ public class ActivityGame extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
+    public boolean onSupportNavigateUp() { cancelIfNeeded(); return true; }
+
+    @Override
+    public void onBackPressed() { cancelIfNeeded(); }
+
+    private void cancelIfNeeded() {
+        // sólo si la partida sigue en curso
+        if (StatsStore.getCurrent() != null) {
+            StatsStore.cancelCurrent();
+        }
         finish();
-        return true;
     }
 
     // ----- Menú (perfil) -----
@@ -147,23 +165,49 @@ public class ActivityGame extends AppCompatActivity {
         btnNext.setEnabled(chosen.containsKey(index));
         txtScore.setText(getString(R.string.score_prefix, totalScore));
         btnPrev.setEnabled(index > 0);
+
+        btnNext.setText(index == questions.size() - 1
+                ? getString(R.string.finish)
+                : getString(R.string.next));
+    }
+    private void setOptionsEnabled(boolean enabled) {
+        btnOpt1.setEnabled(enabled);
+        btnOpt2.setEnabled(enabled);
+        btnOpt3.setEnabled(enabled);
+        btnOpt4.setEnabled(enabled);
     }
 
     private void onChoose(int opt) {
+        if (locked.getOrDefault(index, false)) return; // ya respondida
+
         Question q = questions.get(index);
 
-        // Quitar puntaje anterior si reelige
-        int previous = qScore.getOrDefault(index, 0);
-        totalScore -= previous;
+        int earned;
+        if (opt == q.correctIndex) {
+            // correcta: 2, 4, 8, ...
+            earned = 2 * (1 << correctStreak);
+            correctStreak++;
+            wrongStreak = 0;
+        } else {
+            // incorrecta: -3, -6, -12, ...
+            earned = -3 * (1 << wrongStreak);
+            wrongStreak++;
+            correctStreak = 0;
+        }
 
-        int earned = (opt == q.correctIndex) ? SCORE_CORRECT : SCORE_WRONG;
         qScore.put(index, earned);
         chosen.put(index, opt);
         totalScore += earned;
 
+        locked.put(index, true);              // ya no se permite cambiar
         btnNext.setEnabled(true);
         paintAnswered();
         txtScore.setText(getString(R.string.score_prefix, totalScore));
+
+        // si es la última, cambia texto del botón
+        btnNext.setText(index == questions.size() - 1
+                ? getString(R.string.finish)
+                : getString(R.string.next));
     }
 
     private void paintAnswered() {
